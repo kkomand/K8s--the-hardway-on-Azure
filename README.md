@@ -62,7 +62,9 @@ Step 2: Installing Windows Client Tools (Refer to source link above if you are u
             
             az network nsg create -g kubernetes_eastus_rg -n kubernetes-nsg
             
-           - Create a firewall rule that allows external SSH
+        3b. Create Firewall rules
+        
+            - Creatre a firewall rule that allows external SSH
            
             az network nsg rule create -g kubernetes_eastus_rg -n kubernetes-allow-ssh --access allow --destination-address-prefix '*' --destination-port-range 22               --direction inbound --nsg-name kubernetes-nsg --protocol tcp --source-address-prefix '*' --source-port-range '*' --priority 1000
             
@@ -70,6 +72,39 @@ Step 2: Installing Windows Client Tools (Refer to source link above if you are u
             
             az network nsg rule create -g kubernetes_eastus_rg -n kubernetes-allow-api-server --access allow --destination-address-prefix '*' --destination-port- 
             range 6443 --direction inbound --nsg-name kubernetes-nsg --protocol tcp --source-address-prefix '*' --source-port-range '*' --priority 1001
+            
+             - Listing the firewall rules in the Kubernetes-vnet
+             
+            az network nsg rule list -g kubernetes_eastus_rg --nsg-name kubernetes-nsg --query "[].{Name:name, Direction:direction, Priority:priority,
+            Port:destinationPortRange}" -o table
+           Name                         Direction    Priority    Port
+          ---------------------------  -----------  ----------  ------
+           kubernetes-allow-ssh         Inbound      1000        22
+           kubernetes-allow-api-server  Inbound      1001        6443
+            
+            
+           3c.   Expose the Kubernetes API Servers to remote clients by using external loadbalancer
+           
+            - Create external load balancer for Kubernetes API Servers and allocate a static IP
+            
+            az network lb create -g kubernetes_eastus_rg -n kubernetes-lb --backend-pool-name kubernetes-lb-pool --public-ip-address kubernetes-pip --public-ip-
+            address-allocation static
+            
+            - Verify the kubernetes-pip static IP address was created correctly
+            
+             az network public-ip list --query="[?name=='kubernetes-pip']. 
+            {ResourceGroup:resourceGroup,Region:location,Allocation:publicIpAllocationMethod,IP:ipAddress}" -o table
+             
+             ResourceGroup         Region    Allocation    IP
+            --------------------  --------  ------------  -------------
+             kubernetes_eastus_rg  eastus2   Static        <publicipaddress> 
+            
+            
+           - Creating Virtual Machines
+           
+           
+            
+            
             
             
             
