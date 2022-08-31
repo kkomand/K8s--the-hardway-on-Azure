@@ -100,7 +100,19 @@ Step 2: Installing Windows Client Tools (Refer to source link above if you are u
              kubernetes_eastus_rg  eastus2   Static        <publicipaddress> 
             
             
-           - Creating Virtual Machines
+            3d. Creating Virtual Machines
+            
+               - Select the latest Ubuntu Server for the VM's. Check latest available release and run following command 
+               
+               az vm image list --location eastus2 --publisher Canonical --offer UbuntuServer --sku 18.04-LTS --all -o table
+               
+               - Replace UBUNTULTS variable below with latest row in the table
+                 
+                Set-Variable UBUNTULTS Canonical:UbuntuServer:18.04-LTS:18.04.202208100
+                
+                - Validate Variable
+                
+                 Get-Variable -Name UBUNTULTS
            
            
             
