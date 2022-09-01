@@ -113,6 +113,43 @@ Step 2: Installing Windows Client Tools (Refer to source link above if you are u
                 - Validate Variable
                 
                  Get-Variable -Name UBUNTULTS
+                 
+               - Create Availability Set
+                 
+                  az vm availability-set create -g kubernetes_eastus_rg -n controller-as
+                 [An availability set is a logical grouping of VMs that allows Azure to understand how your  application is built to provide for redundancy and 
+                 availability]
+                 
+                - Create 3 public ips for the controller
+                
+                az network public-ip create -n controller-0-pip -g kubernetes_eastus_rg
+                az network public-ip create -n controller-1-pip -g kubernetes_eastus_rg
+                az network public-ip create -n controller-2-pip -g kubernetes_eastus_rg
+                
+                 - Create 3 NICS for the controller
+                 
+                az network nic create -g kubernetes_eastus_rg -n controller-0-nic --private-ip-address 10.240.0.10 --public-ip-address controller-0-pip --vnet 
+                kubernetes-vnet --subnet kubernetes-subnet --ip-forwarding --lb-name kubernetes-lb --lb-address-pools kubernetes-lb-pool
+                
+                az network nic create -g kubernetes_eastus_rg -n controller-1-nic --private-ip-address 10.240.0.11 --public-ip-address controller-1-pip --vnet 
+                kubernetes-vnet --subnet kubernetes-subnet --ip-forwarding --lb-name kubernetes-lb --lb-address-pools kubernetes-lb-pool
+                
+                az network nic create -g kubernetes_eastus_rg -n controller-2-nic --private-ip-address 10.240.0.12 --public-ip-address controller-2-pip --vnet 
+                kubernetes-vnet --subnet kubernetes-subnet --ip-forwarding --lb-name kubernetes-lb --lb-address-pools kubernetes-lb-pool
+                
+                  - Create 3 VMS for the controller
+                az vm create -g kubernetes_eastus_rg -n controller-0 --image Canonical:UbuntuServer:18.04-LTS:18.04.202208100 --nics controller-0-nic --
+                availability-set controller-as --nsg kubernetes-nsg --admin-username 'kuberoot' --generate-ssh-keys 
+
+                az vm create -g kubernetes_eastus_rg -n controller-1 --image Canonical:UbuntuServer:18.04-LTS:18.04.202208100 --nics controller-1-nic -- 
+                availability-set controller-as --nsg kubernetes-nsg --admin-username 'kuberoot' --generate-ssh-keys
+
+                az vm create -g kubernetes_eastus_rg -n controller-2 --image Canonical:UbuntuServer:18.04-LTS:18.04.202208100 --nics controller-2-nic --
+                availability-set controller-as --nsg kubernetes-nsg --admin-username 'kuberoot' --generate-ssh-keys
+                
+                
+                
+                
            
            
             
