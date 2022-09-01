@@ -139,14 +139,22 @@ Step 2: Installing Windows Client Tools (Refer to source link above if you are u
                 
                   - Create 3 VMS for the controller
                 az vm create -g kubernetes_eastus_rg -n controller-0 --image Canonical:UbuntuServer:18.04-LTS:18.04.202208100 --nics controller-0-nic --
-                availability-set controller-as --nsg kubernetes-nsg --admin-username 'kuberoot' --generate-ssh-keys 
+                availability-set controller-as  --admin-username 'kuberoot' --generate-ssh-keys 
 
                 az vm create -g kubernetes_eastus_rg -n controller-1 --image Canonical:UbuntuServer:18.04-LTS:18.04.202208100 --nics controller-1-nic -- 
                 availability-set controller-as --nsg kubernetes-nsg --admin-username 'kuberoot' --generate-ssh-keys
 
                 az vm create -g kubernetes_eastus_rg -n controller-2 --image Canonical:UbuntuServer:18.04-LTS:18.04.202208100 --nics controller-2-nic --
-                availability-set controller-as --nsg kubernetes-nsg --admin-username 'kuberoot' --generate-ssh-keys
+                availability-set controller-as --admin-username 'kuberoot' --generate-ssh-keys
                 
+                - Verify Creation of 3 VMS
+                
+                PS C:\Users\kkomand> az vm list -d -g kubernetes_eastus_rg -o table
+                Name          ResourceGroup         PowerState    PublicIps       Fqdns    Location    Zones
+                ------------  --------------------  ------------  --------------  -------  ----------  -------
+                controller-0  kubernetes_eastus_rg  VM running    <IP>             eastus2
+                controller-1  kubernetes_eastus_rg  VM running    <IP>            eastus2
+                controller-2  kubernetes_eastus_rg  VM running    <IP>         eastus2
                 
                 
                 
