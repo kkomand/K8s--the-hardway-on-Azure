@@ -1,21 +1,22 @@
 # K8s--the-hardway-on-Azure
 Source : https://github.com/ivanfioravanti/kubernetes-the-hard-way-on-azure
 
-Step 1 : Pre-Requisites
-1a. Install Azure CLI on Windows (https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli). Used MSI quick Installer
+**Step 1 : Pre-Requisites
+
+ 1a. Install Azure CLI on Windows (https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli). Used MSI quick Installer
     Launch Windows Powershell in admin mode
     az login 
     az --version
     ![image](https://user-images.githubusercontent.com/56612071/187729539-6a6d5072-04b7-4904-a7bc-6d623752ceee.png)
 
-1b. Create Resource Group
+ 1b. Create Resource Group
     - To view locations for the RG creation, use command az account list-locations
     - Create RG in EastUS2
       az group create -n kubernetes_eastus_rg -l eastus2
       
     - Login to Azure Portal (https://portal.azure.com), Click on Resource Group  and Verify RG kubernetes is created 
 
-Step 2: Installing Windows Client Tools (Refer to source link above if you are using other OS)
+**Step 2: Installing Windows Client Tools (Refer to source link above if you are using other OS)
 
  2a. Install CFSSL and CFSSLJSON 
      CSFSSL : Described as  CloudFlare's PKI/TLS swiss army knife. It is both a command line tool and an HTTP API server for signing, verifying, and bundling TLS 
@@ -46,7 +47,7 @@ Step 2: Installing Windows Client Tools (Refer to source link above if you are u
         - Kubectl Version Check
           kubectl version --short
           
- Step 3: Provisioning Computing Resourcs
+ **Step 3: Provisioning Computing Resourcs
  
       3a. Network Setup - Cluster Networking. Regarding Pods, Container and Service Network setup. Refer to (https://kubernetes.io/docs/concepts/cluster-administration/networking/#kubernetes-model)
           Highly-coupled container-to-container communications: this is solved by Pods and localhost communications.
@@ -156,7 +157,7 @@ Step 2: Installing Windows Client Tools (Refer to source link above if you are u
                 controller-1  kubernetes_eastus_rg  VM running    <IP>            eastus2
                 controller-2  kubernetes_eastus_rg  VM running    <IP>         eastus2
                 
-   Step 4: Provisioning a CA and Generating TLS Certificates*      
+   **Step 4: Provisioning a CA and Generating TLS Certificates*      
    
    
                 
