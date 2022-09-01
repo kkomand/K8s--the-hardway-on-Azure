@@ -156,7 +156,9 @@ Step 2: Installing Windows Client Tools (Refer to source link above if you are u
                 controller-1  kubernetes_eastus_rg  VM running    <IP>            eastus2
                 controller-2  kubernetes_eastus_rg  VM running    <IP>         eastus2
                 
-                
+   Step 4: Provisioning a CA and Generating TLS Certificates*      
+   
+   
                 
            
            
