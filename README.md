@@ -49,7 +49,8 @@ Source : https://github.com/ivanfioravanti/kubernetes-the-hard-way-on-azure
           
  **Step 3: Provisioning Computing Resourcs
  
-      3a. Network Setup - Cluster Networking. Regarding Pods, Container and Service Network setup. Refer to (https://kubernetes.io/docs/concepts/cluster-administration/networking/#kubernetes-model)
+      3a. Network Setup - Cluster Networking. Regarding Pods, Container and Service Network setup. Refer to (https://kubernetes.io/docs/concepts/cluster-
+          administration/networking/#kubernetes-model)
           Highly-coupled container-to-container communications: this is solved by Pods and localhost communications.
           Pod-to-Pod communications: this is the primary focus of this document.
           Pod-to-Service communications: this is covered by services.
